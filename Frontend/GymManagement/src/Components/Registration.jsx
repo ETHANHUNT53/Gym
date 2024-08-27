@@ -19,6 +19,7 @@ import {
 import { z } from "zod";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios"; // Import Axios
 
 // Zod validation schema
 const validationSchema = z.object({
@@ -45,8 +46,24 @@ function Registration() {
     resolver: zodResolver(validationSchema),
   });
 
-  const onSubmit = (formData) => {
-    console.log(formData);
+  const onSubmit = async (formData) => {
+    try {
+      const response = await axios.post(
+        "https://q6sgehtecb.execute-api.eu-west-3.amazonaws.com/api/signup",
+        {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          target: formData.target,
+          preferableActivity: formData.activity,
+        }
+      );
+      console.log("Registration successful:", response.data);
+      // Handle successful registration (e.g., redirect to login page)
+    } catch (error) {
+      console.error("Registration failed:", error.response?.data || error.message);
+      // Handle registration failure (e.g., show error message to the user)
+    }
   };
 
   return (
