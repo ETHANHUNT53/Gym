@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import gymimg from "../assets/gym.jpg";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/700.css";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   IconButton,
@@ -20,6 +18,7 @@ import { z } from "zod";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios"; // Import Axios
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 
 // Zod validation schema
 const validationSchema = z.object({
@@ -31,20 +30,21 @@ const validationSchema = z.object({
 });
 
 function Registration() {
-  const [showPassword, setShowPassword] = useState("");
-
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
-  };
-
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
+    reset, // For resetting the form fields
   } = useForm({
     resolver: zodResolver(validationSchema),
   });
+  const navigate = useNavigate();
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const onSubmit = async (formData) => {
     try {
@@ -60,6 +60,8 @@ function Registration() {
       );
       console.log("Registration successful:", response.data);
       // Handle successful registration (e.g., redirect to login page)
+      reset(); // For form reset
+      navigate("/login");
     } catch (error) {
       console.error("Registration failed:", error.response?.data || error.message);
       // Handle registration failure (e.g., show error message to the user)
@@ -85,13 +87,12 @@ function Registration() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              width: { xs: "90%", sm: "80%", md: "70%" },
+              width: { xs: "75%", sm: "65%", md: "69%", lg: "65%" },
               padding: 3,
             }}
           >
             <Typography
               sx={{
-                fontFamily: "Roboto",
                 fontWeight: 300,
                 lineHeight: "24px",
                 fontSize: "14px",
@@ -105,7 +106,6 @@ function Registration() {
 
             <Typography
               sx={{
-                fontFamily: "roboto",
                 fontWeight: "bold",
                 fontStyle: "normal",
                 lineHeight: "40px",
@@ -216,9 +216,10 @@ function Registration() {
               <Button
                 type="submit"
                 variant="contained"
+                fullWidth
                 sx={{
-                  margin: "25px",
-                  width: "100%",
+                  marginTop: "25px",
+                  marginBottom: "20px",
                   backgroundColor: "#9EF300",
                   color: "#000000",
                   cursor: "pointer",
@@ -231,16 +232,8 @@ function Registration() {
             </form>
             <Typography>
               Already have an account?{" "}
-              <Typography
-                component="span"
-                sx={{
-                  textDecoration: "underline",
-                  cursor: "pointer",
-                  fontWeight: "bold",
-                  "&:hover": { color: "blue" },
-                }}
-              >
-                LOGIN HERE
+              <Typography component={'span'} width={{md:'block'}}>
+                <Link to="/login"><Typography component={'span'} textDecoration="none" sx={{cursor: 'pointer', fontWeight: 'bold', '&:hover': {textDecoration: "underline"}}}>LOGIN HERE</Typography></Link>
               </Typography>
             </Typography>
           </Box>
