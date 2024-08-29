@@ -1,10 +1,10 @@
 import "./App.css";
-import Registration from "./Components/Registration";
-import Login from "./Components/Login";
-import Navbar from "./Components/Navbar";
-import Greeting from "./Components/Greeting";
-import WorkoutCard from "./Components/WorkoutCard";
-import UserProfile from "./Components/UserProfile";
+import Registration from "./components/Registration";
+import Login from "./components/Login";
+import Navbar from "./components/Navbar";
+import Greeting from "./components/Greeting";
+import WorkoutCard from "./components/WorkoutCard";
+import UserProfile from "./components/UserProfile";
 import { Container, Grid } from "@mui/material";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';

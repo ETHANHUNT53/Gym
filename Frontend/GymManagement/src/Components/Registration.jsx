@@ -78,8 +78,8 @@ function Registration() {
           justifyContent={"center"}
           alignItems={"center"}
           xs={12}
-          md={6}
-          lg={6}
+          md={6.5}
+          lg={6.5}
           sx={{ minHeight: "97vh", padding: { xs: 2, md: 4 } }}
         >
           <Box
@@ -87,7 +87,7 @@ function Registration() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              width: { xs: "75%", sm: "65%", md: "69%", lg: "65%" },
+              width: { xs: "75%", sm: "65%", md: "69%", lg: "60%" },
               padding: 3,
             }}
           >
@@ -242,8 +242,8 @@ function Registration() {
         <Grid
           item
           xs={0}
-          md={6}
-          lg={6}
+          md={5.3}
+          lg={5.3}
           sx={{
             display: { xs: "none", md: "block" }, // Hide on xs, show on md and lg
             backgroundImage: `url(${gymimg})`,
@@ -254,15 +254,17 @@ function Registration() {
           }}
         >
           <Box
-            marginTop={"65%"}
-            marginLeft={"10%"}
-            marginRight={"10%"}
+            marginTop={"68%"}
+            marginLeft={"8%"}
+            marginRight={"8%"}
             marginBottom={"5%"}
             textAlign={"left"}
           >
             <Typography
               variant="h4"
-              fontWeight={"bold"}
+              fontWeight="500px"
+              fontSize="32px"
+              lineHeight="48px"
               component={"span"}
               color={"#ffffff"}
             >
@@ -270,7 +272,9 @@ function Registration() {
             </Typography>
             <Typography
               variant="h4"
-              fontWeight={"bold"}
+              fontWeight="500px"
+              fontSize="32px"
+              lineHeight="48px"
               component={"span"}
               color={"#9EF300"}
             >
@@ -278,7 +282,9 @@ function Registration() {
             </Typography>
             <Typography
               variant="h4"
-              fontWeight={"bold"}
+              fontWeight="500px"
+              fontSize="32px"
+              lineHeight="48px"
               component={"span"}
               color={"#ffffff"}
             >
@@ -286,7 +292,9 @@ function Registration() {
             </Typography>
             <Typography
               variant="h4"
-              fontWeight={"bold"}
+              fontWeight="500px"
+              fontSize="32px"
+              lineHeight="48px"
               component={"span"}
               color={"#9EF300"}
             >
@@ -294,7 +302,9 @@ function Registration() {
             </Typography>
             <Typography
               variant="h4"
-              fontWeight={"bold"}
+              fontWeight="500px"
+              fontSize="32px"
+              lineHeight="48px"
               component={"span"}
               color={"#ffffff"}
             >
