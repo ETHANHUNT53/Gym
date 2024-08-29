@@ -3,7 +3,9 @@ import { Box, Button, Grid, TextField, Typography, Switch, CssBaseline, IconButt
 import { Visibility, VisibilityOff } from '@mui/icons-material';  // Import visibility icons
 import Image from '../assets/download.png';
 import { z } from 'zod';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -11,12 +13,15 @@ const loginSchema = z.object({
 });
 
 
+// const navigate = useNavigate();
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);  // State to manage password visibility
+  
+  const navigate = useNavigate();
 
   const validateField = (name, value) => {
     const validationResult = loginSchema.safeParse({ [name]: value });
@@ -61,6 +66,24 @@ const Login = () => {
     } else {
       setErrors({ email: '', password: '' });
       console.log('Login successful');
+      setEmail('');
+      setPassword('')
+      toast.success('Login successful', {
+        position: "bottom-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+        });
+
+        setTimeout(()=>{
+          navigate('/coaches');
+        },2000)
+
     }
   };
 
@@ -71,6 +94,19 @@ const Login = () => {
 
   return (
     <>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition: Bounce
+      />
       <CssBaseline />
       
       <Grid container>
@@ -228,7 +264,7 @@ const Login = () => {
             component="img"
             sx={{
               objectFit:"",
-              width: {  md: "82%" },
+              width: {  md: "78%" },
               height: "92vh",
               borderRadius: { xs: "20px", md: "30px" },
               marginBottom: { xs: 4, md: 0 },
