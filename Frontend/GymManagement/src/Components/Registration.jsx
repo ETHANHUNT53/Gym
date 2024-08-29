@@ -59,25 +59,45 @@ function Registration() {
     setShowPassword((prev) => !prev);
   };
 
-  const onSubmit = (data) => {
-    toast.success("Created Account Successfully", {
-      position: "bottom-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      transition: Bounce,
-    });
-    reset();
-    console.log("Registration success", data);
-
-    setTimeout(() => {
-      navigate("/login");
-    }, 2000);
+  const onSubmit = async (formData) => {
+    try {
+      const response = await axios.post(
+        "https://x3tdlqbyn5.execute-api.eu-west-3.amazonaws.com/api/signup",
+        {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          target: formData.target,
+          preferableActivity: formData.activity,
+        }
+      );
+      console.log("Registration successful:", response.data);
+      // Handle successful registration (e.g., redirect to login page)
+      toast.success("Created Account Successfully", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+      reset(); // For form reset
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    } catch (error) {
+      console.error("Registration failed:", error.response?.data || error.message);
+      // Handle registration failure (e.g., show error message to the user)
+      toast.error(`Registration failed: ${error.response?.data?.message || error.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
   };
+
+  
   return (
     <div>
       <ToastContainer
