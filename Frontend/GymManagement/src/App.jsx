@@ -7,6 +7,7 @@ import Render from "./Components/Render";
 import coaches from './assets/sample.json';
 import '@fontsource/montserrat/400.css';
 import '@fontsource/montserrat/700.css';
+import Profile from "./Components/Profile";
 
 
 
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Registration/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/profile' element={<Profile/>}/>
         <Route path='/coaches' element = {<Render list={coaches}/>}/>
       </Routes>
     </Router>

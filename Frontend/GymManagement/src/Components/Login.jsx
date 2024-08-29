@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Box, Button, Grid, TextField, Typography, CssBaseline, IconButton, InputAdornment } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';  // Import visibility icons
+import { Visibility, VisibilityOff } from '@mui/icons-material';  
 import Image from '../assets/download.png';
 import { z } from 'zod';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -16,8 +17,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
-  const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate(); 
 
   const validateField = (name, value) => {
     const validationResult = loginSchema.safeParse({ [name]: value });
@@ -48,22 +49,30 @@ const Login = () => {
     validateField("password", value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const validationResult = loginSchema.safeParse({ email, password });
-
+  
     if (!validationResult.success) {
       const fieldErrors = validationResult.error.format();
       setErrors({
         email: fieldErrors.email?._errors[0] || "",
         password: fieldErrors.password?._errors[0] || "",
       });
-    } else {
-      setErrors({ email: "", password: "" });
-      console.log("Login successful");
-      setEmail("");
-      setPassword("");
+      return;
+    }
+
+    let headerObj = {
+      headers: {
+        "Connection": "keep-alive",
+        "Accept-Encoding": ["gzip", "deflate", "br"],
+        "Content-Type": "application/json"
+      }
+    }
+  
+    try {
+  
       toast.success("Login successful", {
         position: "bottom-center",
         autoClose: 2000,
@@ -71,17 +80,23 @@ const Login = () => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
         theme: "dark",
         transition: Bounce,
       });
-
-      // Redirect to another page after 2 seconds
+  
+      setEmail("");
+      setPassword("");
       setTimeout(() => {
-        navigate("/coaches");
+        navigate("/profile");
       }, 2000);
+    } catch (error) {
+      console.error("Login failed:", error.response?.data || error.message);
+      toast.error(`Login failed: ${error.response?.data?.message || error.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
+  
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -181,7 +196,7 @@ const Login = () => {
               margin="normal"
               name="password"
               label="Password"
-              type={showPassword ? "text" : "password"} // Toggle between text and password type
+              type={showPassword ? "text" : "password"} 
               id="password"
               autoComplete="current-password"
               fullWidth
@@ -287,7 +302,7 @@ const Login = () => {
               borderRadius: { xs: "20px", md: "30px" },
               marginBottom: { xs: 4, md: 0 },
               marginRight: { xs: 0, md: "90px" },
-              display: { xs: "none", md: "block" }, // Hide on smaller screens
+              display: { xs: "none", md: "block" }, 
             }}
             alt="Image"
             src={Image}

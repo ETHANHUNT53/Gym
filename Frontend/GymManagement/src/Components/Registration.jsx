@@ -28,7 +28,6 @@ import {
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// Zod validation schema
 const validationSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
@@ -49,7 +48,7 @@ function Registration() {
     handleSubmit,
     formState: { errors },
     control,
-    reset, // For resetting the form fields
+    reset, 
   } = useForm({
     resolver: zodResolver(validationSchema),
   });
@@ -59,24 +58,39 @@ function Registration() {
     setShowPassword((prev) => !prev);
   };
 
-  const onSubmit = (data) => {
-    toast.success("Created Account Successfully", {
-      position: "bottom-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      transition: Bounce,
-    });
-    reset();
-    console.log("Registration success", data);
-
-    setTimeout(() => {
-      navigate("/login");
-    }, 2000);
+  const onSubmit = async (formData) => {
+    try {
+      const response = 
+        {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          target: formData.target,
+          preferableActivity: formData.activity,
+        }
+      
+      console.log("Registration successful:", response.data);
+      toast.success("Created Account Successfully", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
+      reset(); 
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000)
+    } catch (error) {
+      console.error("Registration failed:", error.response?.data || error.message);
+      toast.error(`Registration failed: ${error.response?.data?.message || error.message}`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
   };
   return (
     <div>
@@ -152,17 +166,17 @@ function Registration() {
                   '& .MuiOutlinedInput-root': {
                     
                     '&:hover fieldset': {
-                      borderColor: 'black', // Remove border color on hover
+                      borderColor: 'black',
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: 'black', // Remove border color when focused
+                      borderColor: 'black', 
                     },
                   },
                   '& .MuiInputLabel-root': {
-                    color: 'black', // Change label color if needed
+                    color: 'black', 
                   },
                   '& .MuiInputBase-input': {
-                    color: 'black', // Change input text color if needed
+                    color: 'black', 
                   },
                 }}
                 {...register("name")}
@@ -178,17 +192,17 @@ function Registration() {
                   '& .MuiOutlinedInput-root': {
                     
                     '&:hover fieldset': {
-                      borderColor: 'black', // Remove border color on hover
+                      borderColor: 'black', 
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: 'black', // Remove border color when focused
+                      borderColor: 'black', 
                     },
                   },
                   '& .MuiInputLabel-root': {
-                    color: 'black', // Change label color if needed
+                    color: 'black', 
                   },
                   '& .MuiInputBase-input': {
-                    color: 'black', // Change input text color if needed
+                    color: 'black', 
                   },
                   
                  }}
@@ -210,17 +224,17 @@ function Registration() {
                   '& .MuiOutlinedInput-root': {
                     
                     '&:hover fieldset': {
-                      borderColor: 'black', // Remove border color on hover
+                      borderColor: 'black', 
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: 'black', // Remove border color when focused
+                      borderColor: 'black',
                     },
                   },
                   '& .MuiInputLabel-root': {
-                    color: 'black', // Change label color if needed
+                    color: 'black', 
                   },
                   '& .MuiInputBase-input': {
-                    color: 'black', // Change input text color if needed
+                    color: 'black', 
                   },}}
                 InputProps={{
                   endAdornment: (
@@ -239,17 +253,17 @@ function Registration() {
                   '& .MuiOutlinedInput-root': {
                     
                     '&:hover fieldset': {
-                      borderColor: 'black', // Remove border color on hover
+                      borderColor: 'black', 
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: 'black', // Remove border color when focused
+                      borderColor: 'black',
                     },
                   },
                   '& .MuiInputLabel-root': {
-                    color: 'black', // Change label color if needed
+                    color: 'black', 
                   },
                   '& .MuiInputBase-input': {
-                    color: 'black', // Change input text color if needed
+                    color: 'black', 
                   },
                   
                  }}
@@ -281,17 +295,17 @@ function Registration() {
                   '& .MuiOutlinedInput-root': {
                     
                     '&:hover fieldset': {
-                      borderColor: 'black', // Remove border color on hover
+                      borderColor: 'black',
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: 'black', // Remove border color when focused
+                      borderColor: 'black',
                     },
                   },
                   '& .MuiInputLabel-root': {
-                    color: 'black', // Change label color if needed
+                    color: 'black',
                   },
                   '& .MuiInputBase-input': {
-                    color: 'black', // Change input text color if needed
+                    color: 'black',
                   },
                  }}
                 margin="normal"
@@ -366,7 +380,7 @@ function Registration() {
           md={5.3}
           lg={5.3}
           sx={{
-            display: { xs: "none", md: "block" }, // Hide on xs, show on md and lg
+            display: { xs: "none", md: "block" }, 
             backgroundImage: `url(${gymimg})`,
             backgroundSize: "cover",
             backgroundPosition: "right",
