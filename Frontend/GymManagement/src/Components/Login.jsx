@@ -1,41 +1,18 @@
 import React, { useState } from 'react';
 import { Box, Button, Grid, TextField, Typography, Switch, CssBaseline, IconButton, InputAdornment } from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Visibility, VisibilityOff } from '@mui/icons-material';  // Import visibility icons
-import Image from '../assets/gym.png';
+import Image from '../assets/download.png';
 import { z } from 'zod';
+import { Link } from 'react-router-dom';
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   password: z.string().min(8, { message: "Password cannot be less than 8 characters" }),
 });
 
-const lightTheme = createTheme({
-  palette: {
-    mode: 'light',
-    primary: {
-      main: '#9ef300',
-    },
-  },
-  typography: {
-    fontFamily: 'Montserrat',
-  },
-});
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: '#9ef300',
-    },
-  },
-  typography: {
-    fontFamily: 'Montserrat',
-  },
-});
 
 const Login = () => {
-  const [themeMode, setThemeMode] = useState('light');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ email: '', password: '' });
@@ -87,20 +64,15 @@ const Login = () => {
     }
   };
 
-  const handleThemeToggle = () => {
-    setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   return (
-    <ThemeProvider theme={themeMode === 'light' ? lightTheme : darkTheme}>
+    <>
       <CssBaseline />
-      <Box position="absolute" top={10} right={10}>
-        <Switch checked={themeMode === 'dark'} onChange={handleThemeToggle} />
-      </Box>
+      
       <Grid container>
         <Grid item xs={12} md={6} height={"100vh"} display="flex" justifyContent="center" alignItems="center">
           <Box 
@@ -113,6 +85,7 @@ const Login = () => {
             paddingX={{ xs: 2, sm: 4, md: 8 }}
             component="form" 
             onSubmit={handleSubmit}
+            
           >
             <Typography 
               variant="body1" 
@@ -148,7 +121,7 @@ const Login = () => {
                   fontFamily: "Montserrat",
                   fontSize: '16px',
                 },
-                width: { xs: '100%', sm: '300px', md: '450px' },
+                width: { xs: '100%', sm: '500px', md: '450px' },
                 '& .MuiOutlinedInput-root': {
                   '&.Mui-focused fieldset': {
                     borderColor: 'black',
@@ -179,7 +152,7 @@ const Login = () => {
               error={Boolean(errors.password)}
               helperText={errors.password}
               sx={{
-                width: { xs: '100%', sm: '300px', md: '450px' },
+                width: { xs: '100%', sm: '500px', md: '450px'  },
                 '& .MuiInputLabel-root': {
                   fontFamily: 'Montserrat',
                   fontSize: '16px',
@@ -192,6 +165,7 @@ const Login = () => {
                 '& .MuiInputLabel-root.Mui-focused': {
                   color: 'black',
                 },
+                
               }}
               InputProps={{
                 endAdornment: (
@@ -215,7 +189,7 @@ const Login = () => {
                 mt: 3, 
                 mb: 2, 
                 width: "100%", 
-                maxWidth: { xs: '100%', sm: '300px', md: '450px' }, 
+                maxWidth: { xs: '100%', sm: '500px', md: '450px' }, 
                 height: "50px", 
                 background: "#9ef300", 
                 color: "black", 
@@ -236,7 +210,7 @@ const Login = () => {
                 component="span"
                 sx={{ fontWeight: 'bold', textDecoration: 'underline', cursor: 'pointer', fontFamily: 'Montserrat' }}
               >
-                CREATE NEW ACCOUNT
+                <Link to="/"><Typography component={'span'} textDecoration="none" sx={{cursor: 'pointer', fontWeight: 'bold', '&:hover': {textDecoration: "underline"}}}>CREATE NEW ACCOUNT</Typography></Link>
               </Typography>
             </Typography>
           </Box>
@@ -253,19 +227,25 @@ const Login = () => {
           <Box
             component="img"
             sx={{
-              objectFit:"contain",
-              width: { xs: "90%", md: "70%" },
-              height: "98vh",
+              objectFit:"",
+              width: {  md: "82%" },
+              height: "92vh",
               borderRadius: { xs: "20px", md: "30px" },
               marginBottom: { xs: 4, md: 0 },
-              marginRight: {xs: 0, md:"60px"},
+              marginRight: {xs: 0, md:"90px"},
+              display:{xs: "none",sm:"none", md:"block" },
+               '@media (max-width: 1023px) ':{
+                display:'none'
+               }
             }}
             alt="Login Visual"
+            
             src={Image}
           />
         </Grid>
       </Grid>
-    </ThemeProvider>
+      </>
+    
   );
 };
 
