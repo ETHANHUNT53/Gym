@@ -17,7 +17,6 @@ import {
 import { z } from "zod";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios"; // Import Axios
 import {
   BrowserRouter as Router,
   Route,
@@ -32,7 +31,7 @@ const validationSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
   password: z.string()
-  .min(6, "Password must be at least 6 characters long")
+  .min(8, "Password must be at least 8 characters long")
   .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
   .regex(/[a-z]/, "Password must contain at least one lowercase letter")
   .regex(/[0-9]/, "Password must contain at least one number")
@@ -60,16 +59,6 @@ function Registration() {
 
   const onSubmit = async (formData) => {
     try {
-      const response = 
-        {
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-          target: formData.target,
-          preferableActivity: formData.activity,
-        }
-      
-      console.log("Registration successful:", response.data);
       toast.success("Created Account Successfully", {
         position: "bottom-center",
         autoClose: 3000,
@@ -84,7 +73,7 @@ function Registration() {
       reset(); 
       setTimeout(() => {
         navigate("/login");
-      }, 2000)
+      }, 2000);
     } catch (error) {
       console.error("Registration failed:", error.response?.data || error.message);
       toast.error(`Registration failed: ${error.response?.data?.message || error.message}`, {
@@ -92,8 +81,10 @@ function Registration() {
       });
     }
   };
+
+  
   return (
-    <div>
+    <div >
       <ToastContainer
         position="bottom-center"
         autoClose={5000}
@@ -108,7 +99,7 @@ function Registration() {
         transition:Bounce
       />
 
-      <Grid container>
+      <Grid container >
         <Grid
           item
           container
@@ -118,7 +109,7 @@ function Registration() {
           xs={12}
           md={6.5}
           lg={6.5}
-          sx={{ minHeight: "97vh", padding: { xs: 2, md: 4 } }}
+          sx={{ minHeight: "98vh", padding: { xs: 2, md: 4 } }}
         >
           <Box
             sx={{
@@ -137,6 +128,7 @@ function Registration() {
                 width: "100%",
                 textAlign: "left",
                 mb: 1,
+                fontFamily: "Montserrat"
               }}
             >
               LET'S GET YOU STARTED
@@ -151,6 +143,7 @@ function Registration() {
                 width: "100%",
                 textAlign: "left",
                 mb: 1,
+                fontFamily: "Montserrat"
               }}
             >
               Create an Account
@@ -167,15 +160,19 @@ function Registration() {
                     
                     '&:hover fieldset': {
                       borderColor: 'black',
+                      color: 'black'
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: 'black', 
+                      borderColor: 'black',
+                      color: 'black' 
                     },
                   },
                   '& .MuiInputLabel-root': {
+                    fontFamily: "Montserrat",
                     color: 'black', 
                   },
                   '& .MuiInputBase-input': {
+                    fontFamily: "Montserrat",
                     color: 'black', 
                   },
                 }}
@@ -188,20 +185,25 @@ function Registration() {
                 label="Email"
                 variant="outlined"
                 margin="normal"
+                autoComplete="off"
                 sx={{ width: "100%",
                   '& .MuiOutlinedInput-root': {
                     
                     '&:hover fieldset': {
-                      borderColor: 'black', 
+                      borderColor: 'black',
+                      color: 'black'
                     },
                     '&.Mui-focused fieldset': {
                       borderColor: 'black', 
+                      color: 'black' 
                     },
                   },
                   '& .MuiInputLabel-root': {
+                    fontFamily: "Montserrat",
                     color: 'black', 
                   },
                   '& .MuiInputBase-input': {
+                    fontFamily: "Montserrat",
                     color: 'black', 
                   },
                   
@@ -225,15 +227,19 @@ function Registration() {
                     
                     '&:hover fieldset': {
                       borderColor: 'black', 
+                      color: 'black'
                     },
                     '&.Mui-focused fieldset': {
                       borderColor: 'black',
+                      color: 'black' 
                     },
                   },
                   '& .MuiInputLabel-root': {
+                    fontFamily: "Montserrat",
                     color: 'black', 
                   },
                   '& .MuiInputBase-input': {
+                    fontFamily: "Montserrat",
                     color: 'black', 
                   },}}
                 InputProps={{
@@ -245,6 +251,7 @@ function Registration() {
                     </InputAdornment>
                   ),
                 }}
+                autoComplete= "off"
               />
 
               <FormControl
@@ -254,15 +261,20 @@ function Registration() {
                     
                     '&:hover fieldset': {
                       borderColor: 'black', 
+                      color: 'black'
                     },
                     '&.Mui-focused fieldset': {
+                      fontFamily: "Montserrat",
                       borderColor: 'black',
+                      color: 'black' 
                     },
                   },
                   '& .MuiInputLabel-root': {
+                    fontFamily: "Montserrat",
                     color: 'black', 
                   },
                   '& .MuiInputBase-input': {
+                    fontFamily: "Montserrat",
                     color: 'black', 
                   },
                   
@@ -277,10 +289,10 @@ function Registration() {
                   defaultValue=""
                   render={({ field }) => (
                     <Select label="Your Target" {...field}>
-                      <MenuItem value="weight_loss">Weight Loss</MenuItem>
-                      <MenuItem value="muscle_gain">Muscle Gain</MenuItem>
-                      <MenuItem value="flexibility">Flexibility</MenuItem>
-                      <MenuItem value="endurance">Endurance</MenuItem>
+                      <MenuItem value="weight_loss" style={{fontFamily: "Montserrat"}}>Weight Loss</MenuItem>
+                      <MenuItem value="muscle_gain" style={{fontFamily: "Montserrat"}}>Muscle Gain</MenuItem>
+                      <MenuItem value="flexibility" style={{fontFamily: "Montserrat"}}>Flexibility</MenuItem>
+                      <MenuItem value="endurance" style={{fontFamily: "Montserrat"}}>Endurance</MenuItem>
                     </Select>
                   )}
                 />
@@ -296,34 +308,40 @@ function Registration() {
                     
                     '&:hover fieldset': {
                       borderColor: 'black',
+                      fontFamily: "Montserrat",
+                      color: 'black'
                     },
                     '&.Mui-focused fieldset': {
                       borderColor: 'black',
+                      fontFamily: "Montserrat",
+                      color: 'black' 
                     },
                   },
                   '& .MuiInputLabel-root': {
                     color: 'black',
+                    fontFamily: "Montserrat",
                   },
                   '& .MuiInputBase-input': {
                     color: 'black',
+                    fontFamily: "Montserrat",
                   },
                  }}
                 margin="normal"
                 error={!!errors.activity}
               >
-                <InputLabel>Preferrable Activity</InputLabel>
+                <InputLabel style={{fontFamily: "Montserrat"}}>Preferrable Activity</InputLabel>
                 <Controller
                   name="activity"
                   control={control}
                   defaultValue=""
                   render={({ field }) => (
-                    <Select label="Preferrable Activity" {...field}>
-                      <MenuItem value="yoga">Yoga</MenuItem>
-                      <MenuItem value="crossfit">CrossFit</MenuItem>
-                      <MenuItem value="strength_training">
+                    <Select label="Preferrable Activity" {...field} >
+                      <MenuItem value="yoga" style={{fontFamily: "Montserrat"}}>Yoga</MenuItem>
+                      <MenuItem value="crossfit" style={{fontFamily: "Montserrat"}}>CrossFit</MenuItem>
+                      <MenuItem value="strength_training" style={{fontFamily: "Montserrat"}}>
                         Strength Training
                       </MenuItem>
-                      <MenuItem value="cardio">Cardio</MenuItem>
+                      <MenuItem value="cardio" style={{fontFamily: "Montserrat"}}>Cardio</MenuItem>
                     </Select>
                   )}
                 />
@@ -340,6 +358,7 @@ function Registration() {
                 fullWidth
                 sx={{
                   marginTop: "25px",
+                  fontFamily:"Montserrat",
                   marginBottom: "20px",
                   backgroundColor: "#9EF300",
                   fontWeight: "bold",
@@ -347,13 +366,14 @@ function Registration() {
                   cursor: "pointer",
                   "&:hover": {
                   background: "#5f8c09",
+                  
                 },
                 }}
               >
                 Create An Account
               </Button>
             </form>
-            <Typography>
+            <Typography sx={{fontFamily: "Montserrat"}}>
               Already have an account?{" "}
               <Typography component={"span"} width={{ md: "block" }}>
                 <Link to="/login">
@@ -363,6 +383,7 @@ function Registration() {
                     sx={{
                       cursor: "pointer",
                       fontWeight: "bold",
+                      fontFamily: "Montserrat",
                       "&:hover": { textDecoration: "underline" },
                     }}
                   >

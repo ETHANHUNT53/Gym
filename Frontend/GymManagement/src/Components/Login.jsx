@@ -10,7 +10,11 @@ import axios from 'axios';
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
-  password: z.string().min(8, { message: "Password cannot be less than 8 characters" }),
+  password: z.string().min(8, { message: "Password cannot be less than 8 characters" })
+  .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+  .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+  .regex(/[0-9]/, "Password must contain at least one number")
+  .regex(/[\W_]/, "Password must contain at least one special character"),
 });
 
 const Login = () => {
@@ -22,7 +26,6 @@ const Login = () => {
 
   const validateField = (name, value) => {
     const validationResult = loginSchema.safeParse({ [name]: value });
-
     if (!validationResult.success) {
       const fieldError = validationResult.error.format()[name]?._errors[0] || "";
       setErrors((prevErrors) => ({
@@ -144,13 +147,16 @@ const Login = () => {
               variant="body1"
               alignSelf={"flex-start"}
               marginBottom={{ xs: 1, md: 2 }}
+              style={{fontFamily: "Montserrat"}}
             >
               WELCOME BACK
             </Typography>
 
             <Typography
               variant="h6"
-              style={{ fontWeight: "bold" }}
+              style={{ fontWeight: "bold",
+                fontFamily: "Montserrat"
+               }}
               alignSelf={"flex-start"}
               marginBottom={{ xs: 2, md: 4 }}
             >
@@ -255,7 +261,7 @@ const Login = () => {
               Login
             </Button>
 
-            <Typography variant="body1">
+            <Typography variant="body1" style={{fontFamily: "Montserrat"}}>
               Don't have an account?{" "}
               <Typography
                 variant="body1"
@@ -275,6 +281,7 @@ const Login = () => {
                       cursor: "pointer",
                       fontWeight: "bold",
                       "&:hover": { textDecoration: "underline" },
+                      fontFamily: "Montserrat"
                     }}
                   >
                     CREATE NEW ACCOUNT
