@@ -1,19 +1,14 @@
 import "./App.css";
 import Registration from "./Components/Registration";
-import Login from "./components/Login";
-import { Container, Grid } from "@mui/material";
+import Login from "./Components/Login";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Card from './Components/Card'
+import Render from "./Components/Render";
+import coaches from './assets/sample.json';
 import '@fontsource/montserrat/400.css';
 import '@fontsource/montserrat/700.css';
-// import NavBar from "./Components/Profile/NavBar";
 
 
-const theme = createTheme({
-  typography: {
-    fontFamily: 'Montserrat, Arial, sans-serif',
-  },
-});
 
 
 function App() {
@@ -23,9 +18,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Registration/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/coaches' element = {<Render list={coaches}/>}/>
       </Routes>
     </Router>
-    {/* <NavBar/> */}
     </>
   );
 }

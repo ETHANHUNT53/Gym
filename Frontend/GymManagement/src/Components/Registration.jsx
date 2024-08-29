@@ -170,11 +170,9 @@ function Registration() {
                 sx={{
                   width: "100%",
                   '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: 'transparent', // Remove border color
-                    },
+                    
                     '&:hover fieldset': {
-                      borderColor: 'transparent', // Remove border color on hover
+                      borderColor: 'black', // Remove border color on hover
                     },
                     '&.Mui-focused fieldset': {
                       borderColor: 'black', // Remove border color when focused
@@ -188,7 +186,7 @@ function Registration() {
                   },
                 }}
                 {...register("name")}
-                error={!!errors.name}
+                error={!!errors.name} 
                 helperText={errors.name ? errors.name.message : ""}
               />
 
@@ -196,7 +194,24 @@ function Registration() {
                 label="Email"
                 variant="outlined"
                 margin="normal"
-                sx={{ width: "100%" }}
+                sx={{ width: "100%",
+                  '& .MuiOutlinedInput-root': {
+                    
+                    '&:hover fieldset': {
+                      borderColor: 'black', // Remove border color on hover
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'black', // Remove border color when focused
+                    },
+                  },
+                  '& .MuiInputLabel-root': {
+                    color: 'black', // Change label color if needed
+                  },
+                  '& .MuiInputBase-input': {
+                    color: 'black', // Change input text color if needed
+                  },
+                  
+                 }}
                 {...register("email")}
                 error={!!errors.email}
                 helperText={errors.email ? errors.email.message : ""}
@@ -211,6 +226,22 @@ function Registration() {
                 {...register("password")}
                 error={!!errors.password}
                 helperText={errors.password ? errors.password.message : ""}
+                sx={{width:"100%",
+                  '& .MuiOutlinedInput-root': {
+                    
+                    '&:hover fieldset': {
+                      borderColor: 'black', // Remove border color on hover
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'black', // Remove border color when focused
+                    },
+                  },
+                  '& .MuiInputLabel-root': {
+                    color: 'black', // Change label color if needed
+                  },
+                  '& .MuiInputBase-input': {
+                    color: 'black', // Change input text color if needed
+                  },}}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -224,7 +255,24 @@ function Registration() {
 
               <FormControl
                 variant="outlined"
-                sx={{ width: "100%" }}
+                sx={{ width: "100%",
+                  '& .MuiOutlinedInput-root': {
+                    
+                    '&:hover fieldset': {
+                      borderColor: 'black', // Remove border color on hover
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'black', // Remove border color when focused
+                    },
+                  },
+                  '& .MuiInputLabel-root': {
+                    color: 'black', // Change label color if needed
+                  },
+                  '& .MuiInputBase-input': {
+                    color: 'black', // Change input text color if needed
+                  },
+                  
+                 }}
                 margin="normal"
                 error={!!errors.target}
               >
@@ -249,7 +297,23 @@ function Registration() {
 
               <FormControl
                 variant="outlined"
-                sx={{ width: "100%" }}
+                sx={{ width: "100%",
+                  '& .MuiOutlinedInput-root': {
+                    
+                    '&:hover fieldset': {
+                      borderColor: 'black', // Remove border color on hover
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'black', // Remove border color when focused
+                    },
+                  },
+                  '& .MuiInputLabel-root': {
+                    color: 'black', // Change label color if needed
+                  },
+                  '& .MuiInputBase-input': {
+                    color: 'black', // Change input text color if needed
+                  },
+                 }}
                 margin="normal"
                 error={!!errors.activity}
               >
@@ -284,10 +348,12 @@ function Registration() {
                   marginTop: "25px",
                   marginBottom: "20px",
                   backgroundColor: "#9EF300",
+                  fontWeight: "bold",
                   color: "#000000",
                   cursor: "pointer",
-                  "&:hover": { backgroundColor: "#9EF300" },
-                  textTransform: "none",
+                  "&:hover": {
+                  background: "#5f8c09",
+                },
                 }}
               >
                 Create An Account
