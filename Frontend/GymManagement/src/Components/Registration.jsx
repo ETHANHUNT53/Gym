@@ -92,7 +92,15 @@ function Registration() {
       console.error("Registration failed:", error.response?.data || error.message);
       // Handle registration failure (e.g., show error message to the user)
       toast.error(`Registration failed: ${error.response?.data?.message || error.message}`, {
-        position: toast.POSITION.TOP_RIGHT,
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
       });
     }
   };
