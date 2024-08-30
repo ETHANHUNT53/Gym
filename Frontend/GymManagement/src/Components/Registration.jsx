@@ -17,6 +17,7 @@ import {
 import { z } from "zod";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios"; // Import Axios
 import {
   BrowserRouter as Router,
   Route,
@@ -27,8 +28,9 @@ import {
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// Zod validation schema
 const validationSchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(2, "Name should be more than 1 characters"),
   email: z.string().email("Invalid email address"),
   password: z.string()
   .min(8, "Password must be at least 8 characters long")
@@ -47,7 +49,7 @@ function Registration() {
     handleSubmit,
     formState: { errors },
     control,
-    reset, 
+    reset, // For resetting the form fields
   } = useForm({
     resolver: zodResolver(validationSchema),
   });
@@ -59,6 +61,18 @@ function Registration() {
 
   const onSubmit = async (formData) => {
     try {
+      const response = await axios.post(
+        "https://y2dn949cai.execute-api.eu-west-3.amazonaws.com/api/signup",
+        {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          target: formData.target,
+          preferableActivity: formData.activity,
+        }
+      );
+      console.log("Registration successful:", response.data);
+      // Handle successful registration (e.g., redirect to login page)
       toast.success("Created Account Successfully", {
         position: "bottom-center",
         autoClose: 3000,
@@ -70,12 +84,13 @@ function Registration() {
         theme: "dark",
         transition: Bounce,
       });
-      reset(); 
+      reset(); // For form reset
       setTimeout(() => {
         navigate("/login");
       }, 2000);
     } catch (error) {
       console.error("Registration failed:", error.response?.data || error.message);
+      // Handle registration failure (e.g., show error message to the user)
       toast.error(`Registration failed: ${error.response?.data?.message || error.message}`, {
         position: toast.POSITION.TOP_RIGHT,
       });
@@ -84,7 +99,7 @@ function Registration() {
 
   
   return (
-    <div >
+    <div>
       <ToastContainer
         position="bottom-center"
         autoClose={5000}
@@ -99,7 +114,7 @@ function Registration() {
         transition:Bounce
       />
 
-      <Grid container >
+      <Grid container>
         <Grid
           item
           container
@@ -109,7 +124,7 @@ function Registration() {
           xs={12}
           md={6.5}
           lg={6.5}
-          sx={{ minHeight: "98vh", padding: { xs: 2, md: 4 } }}
+          sx={{ maxHeight: "97vh", padding: { xs: 2, md: 4 } }}
         >
           <Box
             sx={{
@@ -127,8 +142,8 @@ function Registration() {
                 fontSize: "14px",
                 width: "100%",
                 textAlign: "left",
+                fontFamily:'Montserrat',
                 mb: 1,
-                fontFamily: "Montserrat"
               }}
             >
               LET'S GET YOU STARTED
@@ -137,13 +152,13 @@ function Registration() {
             <Typography
               sx={{
                 fontWeight: "bold",
+                fontFamily:'Montserrat',
                 fontStyle: "normal",
                 lineHeight: "40px",
                 fontSize: "24px",
                 width: "100%",
                 textAlign: "left",
                 mb: 1,
-                fontFamily: "Montserrat"
               }}
             >
               Create an Account
@@ -157,27 +172,25 @@ function Registration() {
                 sx={{
                   width: "100%",
                   '& .MuiOutlinedInput-root': {
-                    
+                    '& fieldset': {
+                       // Remove border color
+                    },
                     '&:hover fieldset': {
-                      borderColor: 'black',
-                      color: 'black'
+                       // Remove border color on hover
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: 'black',
-                      color: 'black' 
+                    // Remove border color when focused
                     },
                   },
                   '& .MuiInputLabel-root': {
-                    fontFamily: "Montserrat",
-                    color: 'black', 
+                     // Change label color if needed
                   },
                   '& .MuiInputBase-input': {
-                    fontFamily: "Montserrat",
-                    color: 'black', 
+                    color: 'black', // Change input text color if needed
                   },
                 }}
                 {...register("name")}
-                error={!!errors.name} 
+                error={!!errors.name}
                 helperText={errors.name ? errors.name.message : ""}
               />
 
@@ -185,29 +198,7 @@ function Registration() {
                 label="Email"
                 variant="outlined"
                 margin="normal"
-                autoComplete="off"
-                sx={{ width: "100%",
-                  '& .MuiOutlinedInput-root': {
-                    
-                    '&:hover fieldset': {
-                      borderColor: 'black',
-                      color: 'black'
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: 'black', 
-                      color: 'black' 
-                    },
-                  },
-                  '& .MuiInputLabel-root': {
-                    fontFamily: "Montserrat",
-                    color: 'black', 
-                  },
-                  '& .MuiInputBase-input': {
-                    fontFamily: "Montserrat",
-                    color: 'black', 
-                  },
-                  
-                 }}
+                sx={{ width: "100%" }}
                 {...register("email")}
                 error={!!errors.email}
                 helperText={errors.email ? errors.email.message : ""}
@@ -222,26 +213,6 @@ function Registration() {
                 {...register("password")}
                 error={!!errors.password}
                 helperText={errors.password ? errors.password.message : ""}
-                sx={{width:"100%",
-                  '& .MuiOutlinedInput-root': {
-                    
-                    '&:hover fieldset': {
-                      borderColor: 'black', 
-                      color: 'black'
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: 'black',
-                      color: 'black' 
-                    },
-                  },
-                  '& .MuiInputLabel-root': {
-                    fontFamily: "Montserrat",
-                    color: 'black', 
-                  },
-                  '& .MuiInputBase-input': {
-                    fontFamily: "Montserrat",
-                    color: 'black', 
-                  },}}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -251,34 +222,11 @@ function Registration() {
                     </InputAdornment>
                   ),
                 }}
-                autoComplete= "off"
               />
 
               <FormControl
                 variant="outlined"
-                sx={{ width: "100%",
-                  '& .MuiOutlinedInput-root': {
-                    
-                    '&:hover fieldset': {
-                      borderColor: 'black', 
-                      color: 'black'
-                    },
-                    '&.Mui-focused fieldset': {
-                      fontFamily: "Montserrat",
-                      borderColor: 'black',
-                      color: 'black' 
-                    },
-                  },
-                  '& .MuiInputLabel-root': {
-                    fontFamily: "Montserrat",
-                    color: 'black', 
-                  },
-                  '& .MuiInputBase-input': {
-                    fontFamily: "Montserrat",
-                    color: 'black', 
-                  },
-                  
-                 }}
+                sx={{ width: "100%" }}
                 margin="normal"
                 error={!!errors.target}
               >
@@ -289,10 +237,10 @@ function Registration() {
                   defaultValue=""
                   render={({ field }) => (
                     <Select label="Your Target" {...field}>
-                      <MenuItem value="weight_loss" style={{fontFamily: "Montserrat"}}>Weight Loss</MenuItem>
-                      <MenuItem value="muscle_gain" style={{fontFamily: "Montserrat"}}>Muscle Gain</MenuItem>
-                      <MenuItem value="flexibility" style={{fontFamily: "Montserrat"}}>Flexibility</MenuItem>
-                      <MenuItem value="endurance" style={{fontFamily: "Montserrat"}}>Endurance</MenuItem>
+                      <MenuItem value="weight_loss">Weight Loss</MenuItem>
+                      <MenuItem value="muscle_gain">Muscle Gain</MenuItem>
+                      <MenuItem value="flexibility">Flexibility</MenuItem>
+                      <MenuItem value="endurance">Endurance</MenuItem>
                     </Select>
                   )}
                 />
@@ -303,45 +251,23 @@ function Registration() {
 
               <FormControl
                 variant="outlined"
-                sx={{ width: "100%",
-                  '& .MuiOutlinedInput-root': {
-                    
-                    '&:hover fieldset': {
-                      borderColor: 'black',
-                      fontFamily: "Montserrat",
-                      color: 'black'
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: 'black',
-                      fontFamily: "Montserrat",
-                      color: 'black' 
-                    },
-                  },
-                  '& .MuiInputLabel-root': {
-                    color: 'black',
-                    fontFamily: "Montserrat",
-                  },
-                  '& .MuiInputBase-input': {
-                    color: 'black',
-                    fontFamily: "Montserrat",
-                  },
-                 }}
+                sx={{ width: "100%" }}
                 margin="normal"
                 error={!!errors.activity}
               >
-                <InputLabel style={{fontFamily: "Montserrat"}}>Preferrable Activity</InputLabel>
+                <InputLabel>Preferrable Activity</InputLabel>
                 <Controller
                   name="activity"
                   control={control}
                   defaultValue=""
                   render={({ field }) => (
-                    <Select label="Preferrable Activity" {...field} >
-                      <MenuItem value="yoga" style={{fontFamily: "Montserrat"}}>Yoga</MenuItem>
-                      <MenuItem value="crossfit" style={{fontFamily: "Montserrat"}}>CrossFit</MenuItem>
-                      <MenuItem value="strength_training" style={{fontFamily: "Montserrat"}}>
+                    <Select label="Preferrable Activity" {...field}>
+                      <MenuItem value="yoga">Yoga</MenuItem>
+                      <MenuItem value="crossfit">CrossFit</MenuItem>
+                      <MenuItem value="strength_training">
                         Strength Training
                       </MenuItem>
-                      <MenuItem value="cardio" style={{fontFamily: "Montserrat"}}>Cardio</MenuItem>
+                      <MenuItem value="cardio">Cardio</MenuItem>
                     </Select>
                   )}
                 />
@@ -358,22 +284,18 @@ function Registration() {
                 fullWidth
                 sx={{
                   marginTop: "25px",
-                  fontFamily:"Montserrat",
                   marginBottom: "20px",
                   backgroundColor: "#9EF300",
-                  fontWeight: "bold",
                   color: "#000000",
                   cursor: "pointer",
-                  "&:hover": {
-                  background: "#5f8c09",
-                  
-                },
+                  "&:hover": { backgroundColor: "#9EF300" },
+                  textTransform: "none",
                 }}
               >
                 Create An Account
               </Button>
             </form>
-            <Typography sx={{fontFamily: "Montserrat"}}>
+            <Typography>
               Already have an account?{" "}
               <Typography component={"span"} width={{ md: "block" }}>
                 <Link to="/login">
@@ -383,7 +305,6 @@ function Registration() {
                     sx={{
                       cursor: "pointer",
                       fontWeight: "bold",
-                      fontFamily: "Montserrat",
                       "&:hover": { textDecoration: "underline" },
                     }}
                   >
@@ -400,8 +321,9 @@ function Registration() {
           xs={0}
           md={5.3}
           lg={5.3}
+          mt={3}
           sx={{
-            display: { xs: "none", md: "block" }, 
+            display: { xs: "none", md: "block" }, // Hide on xs, show on md and lg
             backgroundImage: `url(${gymimg})`,
             backgroundSize: "cover",
             backgroundPosition: "right",
