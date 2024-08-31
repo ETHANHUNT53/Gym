@@ -67,18 +67,14 @@ const Login = () => {
       return;
     }
     
-    let headerObj = {
-      headers: {
-        "Connection": "keep-alive",
-        "Accept-Encoding": ["gzip", "deflate", "br"],
-        "Content-Type": "application/json"
-      }
-    }
+    
     
     try {
       const res = await axios.post("https://y2dn949cai.execute-api.eu-west-3.amazonaws.com/api/signin",validationResult.data)
       
       if(res.status === 200){
+
+        localStorage.setItem("userEmail" , email)
 
         toast.success("Login successful", {
           position: "bottom-center",
