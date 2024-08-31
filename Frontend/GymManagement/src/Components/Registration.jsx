@@ -71,7 +71,6 @@ function Registration() {
           preferableActivity: formData.activity,
         }
       );
-      console.log("Registration successful:", response.data);
       // Handle successful registration (e.g., redirect to login page)
       toast.success("Created Account Successfully", {
         position: "bottom-center",
@@ -89,7 +88,6 @@ function Registration() {
         navigate("/login");
       }, 2000);
     } catch (error) {
-      console.error("Registration failed:", error.response?.data || error.message);
       // Handle registration failure (e.g., show error message to the user)
       toast.error(`Registration failed: ${error.response?.data?.message || error.message}`, {
         position: "bottom-center",

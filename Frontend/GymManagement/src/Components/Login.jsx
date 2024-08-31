@@ -99,7 +99,6 @@ const Login = () => {
       }
   
     } catch (error) {
-      // console.error("Login failed:", error.response?.data || error.message);
       toast.error(`Login failed: ${error.response?.data?.message || error.message}`, {
         position: "bottom-center",
         autoClose: 5000,
