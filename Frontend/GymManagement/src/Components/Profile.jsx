@@ -9,6 +9,7 @@ const Profile = () => {
 
     const navigate = useNavigate();
     const handleLogout = ()=>{
+      console.log("logout")
         toast.success("Logged out successfully", {
             position: "bottom-center",
             autoClose: 2000,
