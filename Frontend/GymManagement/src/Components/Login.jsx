@@ -54,9 +54,10 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    
     const validationResult = loginSchema.safeParse({ email, password });
-  
+    
+    
     if (!validationResult.success) {
       const fieldErrors = validationResult.error.format();
       setErrors({
@@ -65,7 +66,7 @@ const Login = () => {
       });
       return;
     }
-
+    
     let headerObj = {
       headers: {
         "Connection": "keep-alive",
@@ -73,29 +74,41 @@ const Login = () => {
         "Content-Type": "application/json"
       }
     }
-  
+    
     try {
+      const res = await axios.post("https://y2dn949cai.execute-api.eu-west-3.amazonaws.com/api/signin",validationResult.data)
+      
+      if(res.status === 200){
+
+        toast.success("Login successful", {
+          position: "bottom-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+          transition: Bounce,
+        });
+    
+        setEmail("");
+        setPassword("");
+        setTimeout(() => {
+          navigate("/profile");
+        }, 2000);
+      }
   
-      toast.success("Login successful", {
+    } catch (error) {
+      toast.error(`Login failed: ${error.response?.data?.message || error.message}`, {
         position: "bottom-center",
-        autoClose: 2000,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
+        progress: undefined,
         theme: "dark",
         transition: Bounce,
-      });
-  
-      setEmail("");
-      setPassword("");
-      setTimeout(() => {
-        navigate("/profile");
-      }, 2000);
-    } catch (error) {
-      console.error("Login failed:", error.response?.data || error.message);
-      toast.error(`Login failed: ${error.response?.data?.message || error.message}`, {
-        position: toast.POSITION.TOP_RIGHT,
       });
     }
   };
