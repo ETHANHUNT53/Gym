@@ -7,7 +7,7 @@ import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { keyframes } from '@mui/system';
@@ -56,7 +56,7 @@ function Navbar() {
       <Box sx={{  padding: 0 , marginLeft: "2.5rem" , marginRight: "2rem"}}>
         <Toolbar disableGutters sx={{ width: "100%", padding: 0 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', margin: 0, padding: 0, height:"80px" }}>
-            <ElectricBoltIcon sx={{ display: { xs: 'none', md: 'flex' }, color: "black", fontWeight: 900, fontSize: "2rem" }} />
+            <ElectricBoltIcon sx={{ display: { xs: 'none', md: 'flex' }, color: "black", fontWeight: 800, fontSize: "2rem" }} />
             <Typography
               variant="h6"
               noWrap
@@ -64,8 +64,8 @@ function Navbar() {
               href="#app-bar-with-responsive-menu"
               sx={{
                 display: {  md: 'flex' },
-                fontFamily: 'Montserrat',
-                fontWeight: 700,
+                fontFamily: 'Lexend',
+                fontWeight: 600,
                 color: 'black',
                 textDecoration: 'none',
                 ml: 1,
@@ -82,9 +82,9 @@ function Navbar() {
                     my: 2,
                     color: 'black',
                     display: 'block',
-                    fontWeight: 700,
-                    fontSize: "1rem",
-                    fontFamily: "Montserrat",
+                    fontWeight: 500,
+                    fontSize: "1.2rem",
+                    fontFamily: "Lexend",
                     marginTop: "18px",
                     mr: 4,
                     position: "relative",

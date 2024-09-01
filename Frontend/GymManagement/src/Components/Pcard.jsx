@@ -10,17 +10,17 @@ const Pcard = () => {
     return (
         <Grid width={"42rem"}  padding={2} boxShadow={4} borderRadius={4} marginRight={4} marginBottom={4}>
             <Box display={"flex"} justifyContent={"space-between"} height={"fit-content"}>
-                <Typography variant="body1" color="black" fontFamily={"Montserrat"} fontWeight={"600"}>
+                <Typography variant="h6" color="black" fontFamily={"Lexend"} fontWeight={"500"}>
                     Yoga
                 </Typography>
-                <Button variant='contained' sx={{textTransform:"none", borderRadius:"50px", fontFamily:"Montserrat", }}>Scheduled</Button>
+                <Button variant='contained'  sx={{textTransform:"none", borderRadius:"50px", fontFamily:"Lexend", backgroundColor:"#4eb7fc", fontWeight:"300"}}>Scheduled</Button>
             </Box>
-            <Typography fontFamily={"Montserrat"} fontWeight={"500"} letterSpacing={"0px"} paddingTop={3}>
+            <Typography fontFamily={"Lexend"} fontWeight={"300"} letterSpacing={"0px"} paddingTop={3}>
                 Enhance your flexibility and balance with this calming yoga session. Flow through a series of poses designed to stretch and strengthen your entire body while promoting relaxation.
             </Typography>
             <Box display={"flex"} alignItems={"center"} marginTop={2}>
                 <FontAwesomeIcon icon={faCalendarCheck} style={{ fontSize: "1rem", marginRight: "0.5rem" }} />
-                <Typography fontFamily={"Montserrat"} fontWeight={"600"} variant="body1" color="black">{currDate} July, 12:30</Typography>
+                <Typography fontFamily={"Lexend"} fontWeight={"600"} variant="body1" color="black">{currDate} July, 12:30</Typography>
             </Box>
             <br />
             <Box display={"flex"} justifyContent={"flex-end"}>
@@ -33,7 +33,7 @@ const Pcard = () => {
                         boxShadow: "0",
                         border: "2px solid black",
                         textTransform: 'none',
-                        fontFamily: "Montserrat",
+                        fontFamily: "Lexend",
                         fontWeight: "600",
                         marginX: "10px",
                         "&:hover": {
@@ -55,7 +55,7 @@ const Pcard = () => {
                         boxShadow: "0",
                         border: "2px solid black",
                         textTransform: 'none',
-                        fontFamily: "Montserrat",
+                        fontFamily: "Lexend",
                         fontWeight: "600",
                         "&:hover": {
                             backgroundColor: "#9EF300",

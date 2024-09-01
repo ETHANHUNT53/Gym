@@ -44,6 +44,7 @@ const validationSchema = z.object({
 
 function Registration() {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading,setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -60,6 +61,8 @@ function Registration() {
   };
 
   const onSubmit = async (formData) => {
+
+    setLoading(true);
     try {
       const response = await axios.post(
         "https://y2dn949cai.execute-api.eu-west-3.amazonaws.com/api/signup",
@@ -82,9 +85,11 @@ function Registration() {
         progress: undefined,
         theme: "dark",
         transition: Bounce,
+        style:{fontFamily:"Lexend"}
       });
       reset(); // For form reset
       setTimeout(() => {
+        setLoading(false);
         navigate("/login");
       }, 2000);
     } catch (error) {
@@ -99,13 +104,16 @@ function Registration() {
         progress: undefined,
         theme: "dark",
         transition: Bounce,
+        style:{fontFamily:"Lexend"}
       });
+
+      setLoading(false)
     }
   };
 
   
   return (
-    <div>
+    <div style={{fontFamily: "Lexend" , }} >
       <ToastContainer
         position="bottom-center"
         autoClose={5000}
@@ -119,6 +127,16 @@ function Registration() {
         theme="dark"
         transition:Bounce
       />
+
+      {
+        loading? (
+          <div className="loader-container">
+            <div className='loader'></div>
+          </div>
+        ) :(
+
+        
+      
 
       <Grid container>
         <Grid
@@ -148,7 +166,7 @@ function Registration() {
                 fontSize: "14px",
                 width: "100%",
                 textAlign: "left",
-                fontFamily:'Montserrat',
+                fontFamily:'Lexend',
                 mb: 1,
               }}
             >
@@ -158,7 +176,7 @@ function Registration() {
             <Typography
               sx={{
                 fontWeight: "bold",
-                fontFamily:'Montserrat',
+                fontFamily:'Lexend',
                 fontStyle: "normal",
                 lineHeight: "40px",
                 fontSize: "24px",
@@ -180,19 +198,31 @@ function Registration() {
                   '& .MuiOutlinedInput-root': {
                     '& fieldset': {
                        // Remove border color
+                       fontFamily:"Lexend",
+                       borderColor: 'black',
+                       borderRadius:"10px"
                     },
                     '&:hover fieldset': {
                        // Remove border color on hover
+                       fontFamily:"Lexend",
+                       borderColor: 'black'
+  
                     },
                     '&.Mui-focused fieldset': {
                     // Remove border color when focused
+                      fontFamily:"Lexend",
+                      borderColor: 'black'
+
                     },
                   },
                   '& .MuiInputLabel-root': {
                      // Change label color if needed
+                     fontFamily:"Lexend",
+                     color: "black"
                   },
                   '& .MuiInputBase-input': {
                     color: 'black', // Change input text color if needed
+                    fontFamily:"Lexend"
                   },
                 }}
                 {...register("name")}
@@ -204,10 +234,42 @@ function Registration() {
                 label="Email"
                 variant="outlined"
                 margin="normal"
-                sx={{ width: "100%" }}
+                sx={{
+                  width: "100%",
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                       // Remove border color
+                       fontFamily:"Lexend",
+                       borderColor: 'black',
+                       borderRadius:"10px"
+                    },
+                    '&:hover fieldset': {
+                       // Remove border color on hover
+                       fontFamily:"Lexend",
+                       borderColor: 'black'
+  
+                    },
+                    '&.Mui-focused fieldset': {
+                    // Remove border color when focused
+                      fontFamily:"Lexend",
+                      borderColor: 'black'
+
+                    },
+                  },
+                  '& .MuiInputLabel-root': {
+                     // Change label color if needed
+                     fontFamily:"Lexend",
+                     color: "black"
+                  },
+                  '& .MuiInputBase-input': {
+                    color: 'black', // Change input text color if needed
+                    fontFamily:"Lexend"
+                  },
+                }}
                 {...register("email")}
                 error={!!errors.email}
                 helperText={errors.email ? errors.email.message : ""}
+                
               />
 
               <TextField
@@ -219,6 +281,38 @@ function Registration() {
                 {...register("password")}
                 error={!!errors.password}
                 helperText={errors.password ? errors.password.message : ""}
+                sx={{
+                  width: "100%",
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                       // Remove border color
+                       fontFamily:"Lexend",
+                       borderColor: 'black',
+                       borderRadius:"10px"
+                    },
+                    '&:hover fieldset': {
+                       // Remove border color on hover
+                       fontFamily:"Lexend",
+                       borderColor: 'black'
+  
+                    },
+                    '&.Mui-focused fieldset': {
+                    // Remove border color when focused
+                      fontFamily:"Lexend",
+                      borderColor: 'black'
+
+                    },
+                  },
+                  '& .MuiInputLabel-root': {
+                     // Change label color if needed
+                     fontFamily:"Lexend",
+                     color: "black"
+                  },
+                  '& .MuiInputBase-input': {
+                    color: 'black', // Change input text color if needed
+                    fontFamily:"Lexend"
+                  },
+                }}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -232,7 +326,38 @@ function Registration() {
 
               <FormControl
                 variant="outlined"
-                sx={{ width: "100%" }}
+                sx={{
+                  width: "100%",
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                       // Remove border color
+                       fontFamily:"Lexend",
+                       borderColor: 'black',
+                       borderRadius:"10px"
+                    },
+                    '&:hover fieldset': {
+                       // Remove border color on hover
+                       fontFamily:"Lexend",
+                       borderColor: 'black'
+  
+                    },
+                    '&.Mui-focused fieldset': {
+                    // Remove border color when focused
+                      fontFamily:"Lexend",
+                      borderColor: 'black'
+
+                    },
+                  },
+                  '& .MuiInputLabel-root': {
+                     // Change label color if needed
+                     fontFamily:"Lexend",
+                     color: "black"
+                  },
+                  '& .MuiInputBase-input': {
+                    color: 'black', // Change input text color if needed
+                    fontFamily:"Lexend"
+                  },
+                }}
                 margin="normal"
                 error={!!errors.target}
               >
@@ -257,7 +382,38 @@ function Registration() {
 
               <FormControl
                 variant="outlined"
-                sx={{ width: "100%" }}
+                sx={{
+                  width: "100%",
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                       // Remove border color
+                       fontFamily:"Lexend",
+                       borderColor: 'black',
+                       borderRadius:"10px"
+                    },
+                    '&:hover fieldset': {
+                       // Remove border color on hover
+                       fontFamily:"Lexend",
+                       borderColor: 'black'
+  
+                    },
+                    '&.Mui-focused fieldset': {
+                    // Remove border color when focused
+                      fontFamily:"Lexend",
+                      borderColor: 'black'
+
+                    },
+                  },
+                  '& .MuiInputLabel-root': {
+                     // Change label color if needed
+                     fontFamily:"Lexend",
+                     color: "black"
+                  },
+                  '& .MuiInputBase-input': {
+                    color: 'black', // Change input text color if needed
+                    fontFamily:"Lexend"
+                  },
+                }}
                 margin="normal"
                 error={!!errors.activity}
               >
@@ -294,14 +450,17 @@ function Registration() {
                   backgroundColor: "#9EF300",
                   color: "#000000",
                   cursor: "pointer",
+                  fontFamily: "Lexend",
                   "&:hover": { backgroundColor: "#9EF300" },
                   textTransform: "none",
+                  paddingY:"10px",
+                  fontWeight: "700"
                 }}
               >
                 Create An Account
               </Button>
             </form>
-            <Typography>
+            <Typography fontFamily={"Lexend"}>
               Already have an account?{" "}
               <Typography component={"span"} width={{ md: "block" }}>
                 <Link to="/login">
@@ -311,6 +470,8 @@ function Registration() {
                     sx={{
                       cursor: "pointer",
                       fontWeight: "bold",
+                      color:"black",
+                      fontFamily:"Lexend",
                       "&:hover": { textDecoration: "underline" },
                     }}
                   >
@@ -347,6 +508,7 @@ function Registration() {
             <Typography
               variant="h4"
               fontWeight="500px"
+              fontFamily={"Lexend"}
               fontSize="32px"
               lineHeight="48px"
               component={"span"}
@@ -359,6 +521,7 @@ function Registration() {
               fontWeight="500px"
               fontSize="32px"
               lineHeight="48px"
+              fontFamily={"Lexend"}
               component={"span"}
               color={"#9EF300"}
             >
@@ -370,6 +533,7 @@ function Registration() {
               fontSize="32px"
               lineHeight="48px"
               component={"span"}
+              fontFamily={"Lexend"}
               color={"#ffffff"}
             >
               and the perseverance to{" "}
@@ -378,6 +542,7 @@ function Registration() {
               variant="h4"
               fontWeight="500px"
               fontSize="32px"
+              fontFamily={"Lexend"}
               lineHeight="48px"
               component={"span"}
               color={"#9EF300"}
@@ -389,6 +554,7 @@ function Registration() {
               fontWeight="500px"
               fontSize="32px"
               lineHeight="48px"
+              fontFamily={"Lexend"}
               component={"span"}
               color={"#ffffff"}
             >
@@ -397,6 +563,7 @@ function Registration() {
           </Box>
         </Grid>
       </Grid>
+        )}
     </div>
   );
 }

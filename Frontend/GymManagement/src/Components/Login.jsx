@@ -7,6 +7,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+// import Loader from './Loader';
+import './loader.css'
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -22,6 +24,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
+  const [loading,setLoading] = useState(false);
   const navigate = useNavigate(); 
 
   const validateField = (name, value) => {
@@ -67,9 +70,10 @@ const Login = () => {
       return;
     }
     
-    
+    setLoading(true);
     
     try {
+
       const res = await axios.post("https://y2dn949cai.execute-api.eu-west-3.amazonaws.com/api/signin",validationResult.data)
       
       if(res.status === 200){
@@ -84,12 +88,15 @@ const Login = () => {
           pauseOnHover: true,
           draggable: true,
           theme: "dark",
+          fontFamily:"Lexend",
           transition: Bounce,
+          style:{fontFamily:"Lexend"},
         });
     
         setEmail("");
         setPassword("");
         setTimeout(() => {
+          setLoading(false)
           navigate("/profile");
         }, 2000);
       }
@@ -105,7 +112,9 @@ const Login = () => {
         progress: undefined,
         theme: "dark",
         transition: Bounce,
+        style:{fontFamily:"Lexend"}
       });
+      setLoading(false)
     }
   };
   
@@ -131,7 +140,15 @@ const Login = () => {
       />
       <CssBaseline />
 
-      <Grid container>
+      {
+        loading ? (
+          <div className="loader-container">
+            <div className='loader'></div>
+          </div>
+        ): (
+      
+
+      <Grid width={"100%"} marginRight="350px" container >
         <Grid
           item
           xs={12}
@@ -156,7 +173,7 @@ const Login = () => {
               variant="body1"
               alignSelf={"flex-start"}
               marginBottom={{ xs: 1, md: 2 }}
-              style={{fontFamily: "Montserrat"}}
+              style={{fontFamily: "Lexend"}}
             >
               WELCOME BACK
             </Typography>
@@ -164,7 +181,7 @@ const Login = () => {
             <Typography
               variant="h6"
               style={{ fontWeight: "bold",
-                fontFamily: "Montserrat"
+                fontFamily: "Lexend"
                }}
               alignSelf={"flex-start"}
               marginBottom={{ xs: 2, md: 4 }}
@@ -186,22 +203,23 @@ const Login = () => {
               helperText={errors.email}
               sx={{
                 "& .MuiInputBase-input": {
-                  fontFamily: "Montserrat",
+                  fontFamily: "Lexend",
                   fontSize: "16px",
                 },
                 width: { xs: '100%', sm: '500px', md: '450px' },
                 '& .MuiOutlinedInput-root': {
                   '&.Mui-focused fieldset': {
                     borderColor: 'black',
+                    borderRadius:"10px"
                   },
                 },
                 "& .MuiInputLabel-root.Mui-focused": {
                   color: "black",
-                  fontFamily: "Montserrat",
+                  fontFamily: "Lexend",
                   fontSize: "16px",
                 },
                 "& .MuiInputLabel-root": {
-                  fontFamily: "Montserrat",
+                  fontFamily: "Lexend",
                   fontSize: "16px",
                 },
               }}
@@ -222,12 +240,13 @@ const Login = () => {
               sx={{
                 width: { xs: '100%', sm: '500px', md: '450px' },
                 '& .MuiInputLabel-root': {
-                  fontFamily: 'Montserrat',
+                  fontFamily: 'Lexend',
                   fontSize: '16px',
                 },
                 "& .MuiOutlinedInput-root": {
                   "&.Mui-focused fieldset": {
                     borderColor: "black",
+                    borderRadius:"10px"
                   },
                 },
                 "& .MuiInputLabel-root.Mui-focused": {
@@ -260,17 +279,18 @@ const Login = () => {
                 height: "50px",
                 background: "#9ef300",
                 color: "black",
-                fontWeight: "bold",
-                fontFamily: "Montserrat",
+                fontWeight: "700",
+                fontFamily: "Lexend",
+                textTransform: "none",
                 "&:hover": {
                   background: "#5f8c09",
                 },
               }}
             >
-              Login
+              Log In
             </Button>
 
-            <Typography variant="body1" style={{fontFamily: "Montserrat"}}>
+            <Typography variant="body1" style={{fontFamily: "Lexend"}}>
               Don't have an account?{" "}
               <Typography
                 variant="body1"
@@ -279,7 +299,7 @@ const Login = () => {
                   fontWeight: "bold",
                   textDecoration: "underline",
                   cursor: "pointer",
-                  fontFamily: "Montserrat",
+                  fontFamily: "Lexend",
                 }}
               >
                 <Link to="/">
@@ -289,8 +309,9 @@ const Login = () => {
                     sx={{
                       cursor: "pointer",
                       fontWeight: "bold",
+                      color:"black",
                       "&:hover": { textDecoration: "underline" },
-                      fontFamily: "Montserrat"
+                      fontFamily: "Lexend"
                     }}
                   >
                     CREATE NEW ACCOUNT
@@ -307,24 +328,28 @@ const Login = () => {
           display="flex"
           justifyContent={{ xs: "center", md: "flex-end" }}
           alignItems="center"
+          // border={"3px solid black"}
           height={{ xs: "50vh", md: "100vh" }}
         >
           <Box
             component="img"
+            border={"3px solid black"}
             sx={{
               objectFit: "",
-              width: { md: "78%" },
+              width: { md: "76%" },
               height: "92vh",
               borderRadius: { xs: "20px", md: "30px" },
               marginBottom: { xs: 4, md: 0 },
               marginRight: { xs: 0, md: "90px" },
-              display: { xs: "none", md: "block" }, 
+              
+              display: { xs: "none", md : "block" }, 
             }}
             alt="Image"
             src={Image}
           />
         </Grid>
       </Grid>
+        )}
     </>
   );
 };

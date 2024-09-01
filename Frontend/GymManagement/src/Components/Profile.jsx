@@ -69,7 +69,7 @@ const Profile = () => {
                 <Typography
                     variant="h5"
                     color="white"
-                    fontFamily="Montserrat"
+                    fontFamily="Lexend"
                     fontWeight={600}
                     sx={{
                         padding: 4,

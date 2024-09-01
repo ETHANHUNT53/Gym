@@ -10,7 +10,7 @@ import '@fontsource/montserrat/700.css';
 import Profile from "./Components/Profile";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
- 
+
  
 const theme = createTheme({
   typography: {
@@ -22,7 +22,7 @@ function App() {
   return (
     <>
     
-     <Router>
+     <Router >
       <Routes>
         <Route path='/' element={<Registration/>}/>
         <Route path='/login' element={<Login/>}/>
