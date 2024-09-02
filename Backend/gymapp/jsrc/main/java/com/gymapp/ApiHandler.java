@@ -248,6 +248,8 @@ public class ApiHandler implements RequestHandler<APIGatewayProxyRequestEvent, A
 	public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent requestEvent, Context context) {
 		System.out.println("API request received: " + requestEvent);
 
+		System.out.println("Request event: "+ requestEvent);
+
 		if (requestEvent.getBody() == null || requestEvent.getBody().isEmpty()) {
 			return response(HttpStatus.SC_BAD_REQUEST, "Invalid request body");
 		}
