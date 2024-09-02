@@ -8,6 +8,7 @@ import coaches from './assets/sample.json';
 import '@fontsource/montserrat/400.css';
 import '@fontsource/montserrat/700.css';
 import Profile from "./Components/Profile";
+import MyAccount from "./components/MyAccount";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
@@ -28,6 +29,7 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/coaches' element = {<Render list={coaches}/>}/>
+        <Route path="/account" element = {<MyAccount/>} />
       </Routes>
     </Router>
     </>
